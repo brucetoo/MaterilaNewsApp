@@ -4,13 +4,20 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
 import android.widget.TextView;
 
 import com.brucetoo.materilanewsapp.R;
+import com.brucetoo.materilanewsapp.utils.DensityUtil;
+import com.brucetoo.materilanewsapp.utils.StringUtil;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.Optional;
+
+import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 
 /**
  * Created by Bruce Too
@@ -27,16 +34,19 @@ public class BaseActivity extends ActionBarActivity{
     @InjectView(R.id.title)
     TextView mTitle;
 
-    protected MenuItem inboxMenuItem;
+    protected MenuItem mLikeItem; //toolbar menu
+    private static final int TOOLBAR_ANIMATE_TIME = 500;  //toolbar 动画时间
+    private Interpolator decelerateInterpolator = new DecelerateInterpolator();//加速
 
     /**
-     * 子 activiy继承改方法就可以使用注解
+     * 子activiy继承改方法就可以使用注解
      * @param layoutResID
      */
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         ButterKnife.inject(this);
+        //setSystemBarTint();
     }
 
     /**
@@ -47,10 +57,35 @@ public class BaseActivity extends ActionBarActivity{
         if(mToolBar != null){
             setSupportActionBar(mToolBar);
             mToolBar.setNavigationIcon(R.drawable.ic_menu_white);
+            if(!StringUtil.isEmpty(title)) {
+                mTitle.setText(title);
+            }
         }
-
-
     }
+
+    /**
+     *  设置顶部title
+     * @param title
+     */
+    protected void setToolBarTitle(String title) {
+        if (!StringUtil.isEmpty(title)) {
+            mTitle.setText(title);
+        }
+    }
+
+//    /**
+//     * 设置系统导航栏和状态栏颜色
+//     */
+//    protected void setSystemBarTint(){
+//        // create our manager instance after the content view is set
+//        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+//        // enable status bar tint
+//        tintManager.setStatusBarTintEnabled(true);
+//        // enable navigation bar tint
+//        //tintManager.setNavigationBarTintEnabled(true);
+//        tintManager.setStatusBarTintColor(getResources().getColor(R.color.style_color_primary));
+//
+//    }
 
     /**
      * toolBar菜单设置
@@ -62,8 +97,8 @@ public class BaseActivity extends ActionBarActivity{
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         //以下去除了 toolbar item点击时的背景高度和 toolbar的高度不匹配
-        inboxMenuItem = menu.findItem(R.id.action_inbox);
-        inboxMenuItem.setActionView(R.layout.menu_item_view);
+        mLikeItem = menu.findItem(R.id.action_like);
+        mLikeItem.setActionView(R.layout.menu_item_view);
         return true;
     }
 
@@ -85,4 +120,24 @@ public class BaseActivity extends ActionBarActivity{
 //        }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * 开始执行toolBar进入动画
+     */
+    protected void startToolBarAnimation(AnimatorListenerAdapter onAnimationEnd) {
+        int actionBarSize = DensityUtil.dip2px(56);
+        //toolbar整体上移
+        mToolBar.setTranslationY(-actionBarSize);
+        mTitle.setTranslationY(-actionBarSize);
+        //MenuItem要先获取到到actionView才能向上移动
+        mLikeItem.getActionView().setTranslationY(-actionBarSize);
+
+        animate(mToolBar).translationY(0).setDuration(TOOLBAR_ANIMATE_TIME).setInterpolator(decelerateInterpolator).setStartDelay(300);
+        animate(mTitle).translationY(0).setDuration(TOOLBAR_ANIMATE_TIME).setInterpolator(decelerateInterpolator).setStartDelay(400);
+        animate(mLikeItem.getActionView()).translationY(0).setDuration(TOOLBAR_ANIMATE_TIME)
+                .setInterpolator(decelerateInterpolator)
+                .setStartDelay(500)
+                .setListener(onAnimationEnd);
+    }
+
 }

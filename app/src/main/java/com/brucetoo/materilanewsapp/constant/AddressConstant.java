@@ -12,11 +12,13 @@ public class AddressConstant {
     // 头条
     public static final String TopUrl = HOST + "nc/article/headline/";
     public static final String TopId = "T1348647909107";
+    //  http://c.m.163.com/nc/article/headline/T1348647909107/0-20.html
     //eg: TopUrl+ TopId + /+index(0,20,40...)+END_URL;  0,20,40表示每页（20个）的数据
 
     // 新闻详情基URL
     public static final String NewsDetail = HOST + "nc/article/";
-    //eg: NewsDetail + id + END_DETAIL_URL;
+    //eg: NewsDetail + docid + END_DETAIL_URL;
+    //http://c.m.163.com/nc/article/9IG74V5H00963VRO_ANQIHQ3PxwliuupdateDoc/full.html
 
     //新闻数据的基URL
     public static final String NewsBaseUrl = HOST + "nc/article/list/";
@@ -90,6 +92,7 @@ public class AddressConstant {
     // 房产id
     public static final String FangChanId = "5YyX5Lqs";
     // 图集
+    //http://c.m.163.com/photo/api/morelist/0096/54GI0096/63434.json
     public static final String TuJi = HOST + "photo/api/morelist/0096/4GJ60096/";// 42358.json
     // 图集end
     public static final String TuJiEnd = ".json";

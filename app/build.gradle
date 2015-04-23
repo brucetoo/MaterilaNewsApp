@@ -29,4 +29,21 @@ dependencies {
     compile 'com.android.support:cardview-v7:21.0.+'
     compile 'com.jakewharton:butterknife:5.1.2'  //注解
     compile 'com.squareup.picasso:picasso:2.5.0' //图片
+    //viewpager + strip
+    compile 'com.ogaclejapan.smarttablayout:library:1.1.1@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.1.1@aar'
+    //SystemBar tint
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    //log
+    compile 'com.orhanobut:logger:1.8'
+    //animation
+    compile 'com.nineoldandroids:library:2.4.0'
+    //http
+    compile 'com.loopj.android:android-async-http:1.4.6'
+    //json
+    compile 'com.google.code.gson:gson:2.3.1'
+    //dialog
+    compile 'com.afollestad:material-dialogs:0.7.2.7'
+    //progress
+    compile 'com.pnikosis:materialish-progress:1.5'
 }
