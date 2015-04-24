@@ -15,5 +15,5 @@
         app:layout_moreProgress="@layout/layout_loadingview"
         app:mainLayoutId="@layout/layout_recyclerview_verticalscroll"
         app:recyclerClipToPadding="false"
-        app:scrollbarStyle="outsideInset"/>
+        app:scrollbarStyle="outsideOverlay"/>
 </RelativeLayout>

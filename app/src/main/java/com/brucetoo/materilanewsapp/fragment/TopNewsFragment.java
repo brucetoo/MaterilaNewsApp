@@ -34,6 +34,7 @@ public class TopNewsFragment extends BaseFragment {
     SuperRecyclerView mRecyclerView;
 
     private TopNewsRecyclerAdapter adapter;
+    private RelativeLayout mRootView;
 
     protected Handler mViewHandler = new Handler() {
         @Override
@@ -41,12 +42,12 @@ public class TopNewsFragment extends BaseFragment {
             switch (msg.what) {
                 case HANDLE_DATA_SUCCESS:
                     NewsModel model = (NewsModel) msg.obj;
-                    if(adapter == null) {
-                       adapter = new TopNewsRecyclerAdapter(getActivity());
-                       adapter.setNewsIds(model.T1348647909107);
-                       mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                       mRecyclerView.setAdapter(adapter);
-                    }else {
+                    if (adapter == null) {
+                        adapter = new TopNewsRecyclerAdapter(getActivity());
+                        adapter.setNewsIds(model.T1348647909107);
+                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        mRecyclerView.setAdapter(adapter);
+                    } else {
                         adapter.notifyDataSetChanged();
                     }
 
@@ -65,37 +66,32 @@ public class TopNewsFragment extends BaseFragment {
 
     @Override
     protected View initView(LayoutInflater inflater) {
-        View view = inflater.inflate(R.layout.frament_top_news, null);
-        ButterKnife.inject(this, view);
-        return view;
+        mRootView = (RelativeLayout) inflater.inflate(R.layout.frament_top_news, null);
+        ButterKnife.inject(this, mRootView);
+        return mRootView;
     }
 
     @Override
     protected void initData() {
         super.initData();
-        if (!NetWorkUtil.isNetworkAvailable(getActivity())){
-            ((RelativeLayout)mRootView).removeAllViews();
-            View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_errorview,null);
-            ((RelativeLayout)mRootView).addView(view);
+        if (!NetWorkUtil.isNetworkAvailable(getActivity())) {
+            mRootView.removeAllViews();
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_errorview, null);
+            mRootView.addView(view);
         }
         HttpUtil.get(AddressConstant.TopUrl + AddressConstant.TopId + "/0" + AddressConstant.END_URL,
                 new JsonHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-
+                        mViewHandler.sendEmptyMessage(HANDLE_DATA_FAUILED);
                     }
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         NewsModel newsModel = JsonUtil.json2Bean(response.toString(), NewsModel.class);
-                        mViewHandler.obtainMessage(HANDLE_DATA_SUCCESS,newsModel).sendToTarget();
+                        mViewHandler.obtainMessage(HANDLE_DATA_SUCCESS, newsModel).sendToTarget();
                     }
                 });
     }
 
-    @Override
-    public void onRefresh() {
-        //HANDLE_TOPNEWS_REFRESH
-
-    }
 }
