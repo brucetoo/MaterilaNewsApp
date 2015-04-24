@@ -153,6 +153,16 @@ public class TopNewsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     public void setNewsIds(List<NewsModel.NewsId> newsIds) {
         this.newsIds = newsIds;
+        this.notifyDataSetChanged();
+    }
+
+    /**
+     * 增加新闻条目
+     * @param news
+     */
+    public void addNews(List<NewsModel.NewsId> news){
+        newsIds.addAll(news);
+        this.notifyItemInserted(newsIds.size()-1);
     }
 
 }

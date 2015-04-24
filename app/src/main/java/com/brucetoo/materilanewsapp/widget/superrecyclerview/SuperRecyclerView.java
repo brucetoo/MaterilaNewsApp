@@ -383,6 +383,10 @@ public class SuperRecyclerView extends FrameLayout {
         mPtrLayout.setColorSchemeColors(col1, col2, col3, col4);
     }
 
+    public void setRefreshingColor(int col) {
+        mPtrLayout.setColorSchemeColors(col);
+    }
+
     /**
      * Hide the progressbar
      */
@@ -435,7 +439,7 @@ public class SuperRecyclerView extends FrameLayout {
      * Sets the More listener
      *
      * @param onMoreListener
-     * @param max            Number of items before loading more
+     * @param max
      */
     public void setupMoreListener( OnMoreListener onMoreListener, int max) {
         mOnMoreListener = onMoreListener;
