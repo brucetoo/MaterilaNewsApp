@@ -2,7 +2,10 @@ package com.brucetoo.materilanewsapp.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.util.TypedValue;
+import android.view.Display;
+import android.view.WindowManager;
 
 import java.lang.reflect.Field;
 
@@ -12,6 +15,8 @@ import java.lang.reflect.Field;
  * At 21:03
  */
 public class DensityUtil {
+    private static int screenWidth = 0;
+    private static int screenHeight = 0;
     /**
      * 记录系统状态栏的高度
      */
@@ -55,6 +60,40 @@ public class DensityUtil {
             }
         }
         return statusBarHeight;
+    }
+
+    /**
+     * 获取屏幕高度
+     * @param c
+     * @return
+     */
+    public static int getScreenHeight(Context c) {
+        if (screenHeight == 0) {
+            WindowManager wm = (WindowManager) c.getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            screenHeight = size.y;
+        }
+
+        return screenHeight;
+    }
+
+    /**
+     * 获取屏幕宽度
+     * @param c
+     * @return
+     */
+    public static int getScreenWidth(Context c) {
+        if (screenWidth == 0) {
+            WindowManager wm = (WindowManager) c.getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            screenWidth = size.x;
+        }
+
+        return screenWidth;
     }
 
     public static int dpToPx(Resources res, int dp) {

@@ -48,7 +48,7 @@ public class TopNewsFragment extends BaseFragment {
                     adapter.setNewsIds(model.T1348647909107);
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     mRecyclerView.setAdapter(adapter);
-                    Toast.makeText(getActivity(), "刷新成功...", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "刷新成功...", Toast.LENGTH_SHORT).show();
                     break;
                 case HANDLE_DATA_FAIILED:
                     Toast.makeText(getActivity(), "获取失败...", Toast.LENGTH_SHORT).show();
@@ -78,14 +78,15 @@ public class TopNewsFragment extends BaseFragment {
     protected void initData() {
         super.initData();
         if (!NetWorkUtil.isNetworkAvailable(getActivity())) {
-            mRootView.removeAllViews();
-            View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_errorview, null);
-            mRootView.addView(view);
+//            mRootView.removeAllViews();
+//            View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_errorview, null);
+//            mRootView.addView(view);
         }
         mRecyclerView.setRefreshingColor(getResources().getColor(R.color.style_color_primary));
         mRecyclerView.setRefreshListener(refreshListener);
         mRecyclerView.setupMoreListener(moreListener,PAGE_LEFT);
-        loadData(TOP_NEWS_URL.replace("pageIndex", 0 + ""), mViewHandler);
+        //第一次进来的时候如果有缓存 直接读缓存数据
+        loadData(TOP_NEWS_URL.replace("pageIndex", 0 + ""), mViewHandler,false);
     }
 
     /**
@@ -94,7 +95,7 @@ public class TopNewsFragment extends BaseFragment {
     SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            loadData(TOP_NEWS_URL.replace("pageIndex",0 + ""), mViewHandler);
+            loadData(TOP_NEWS_URL.replace("pageIndex",0 + ""), mViewHandler,true);
         }
     };
 

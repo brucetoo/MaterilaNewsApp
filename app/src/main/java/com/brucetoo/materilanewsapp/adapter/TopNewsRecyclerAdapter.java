@@ -5,11 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brucetoo.materilanewsapp.R;
 import com.brucetoo.materilanewsapp.model.NewsModel;
+import com.brucetoo.materilanewsapp.utils.DensityUtil;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -50,6 +53,7 @@ public class TopNewsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
+        runEnterAnimation(holder.itemView);
         NewsModel.NewsId item = newsIds.get(position);
             if(getItemViewType(position) == VIEW_TYPE_PHOTO){
                 PhotoNewsViewHolder photoNewsViewHolder = (PhotoNewsViewHolder) holder;
@@ -165,4 +169,15 @@ public class TopNewsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         this.notifyItemInserted(newsIds.size()-1);
     }
 
+    /**
+     * 每个Item进来的时候都执行动画
+     * @param itemView
+     */
+    public void runEnterAnimation(View itemView){
+        itemView.setTranslationY(DensityUtil.getScreenHeight(context));
+        ObjectAnimator enterAnim = ObjectAnimator.ofFloat(itemView,"translationY",0);
+        enterAnim.setDuration(700);
+        enterAnim.setInterpolator(new DecelerateInterpolator(3));
+        enterAnim.start();
+    }
 }
