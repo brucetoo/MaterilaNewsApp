@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:wheel="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/wpl_refresh"
+    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <com.brucetoo.materilanewsapp.widget.superrecyclerview.SuperRecyclerView
+        android:id="@+id/rv_top_news"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_top_news"
-            android:visibility="visible"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-     <include layout="@layout/view_load_state"/>
-    </RelativeLayout>
-</android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="match_parent"
+        app:layout_progress="@layout/layout_loadingview"
+        app:layout_empty="@layout/layout_emptyview"
+        app:layout_moreProgress="@layout/layout_loadingview"
+        app:mainLayoutId="@layout/layout_recyclerview_verticalscroll"
+        app:recyclerClipToPadding="false"
+        app:scrollbarStyle="outsideInset"/>
+</RelativeLayout>

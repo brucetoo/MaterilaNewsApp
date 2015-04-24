@@ -7,14 +7,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-import com.brucetoo.materilanewsapp.R;
-import com.brucetoo.materilanewsapp.utils.NetWorkUtil;
-import com.pnikosis.materialishprogress.ProgressWheel;
-
-import butterknife.InjectView;
-import butterknife.Optional;
 
 /**
  * Created by Bruce Too
@@ -28,18 +20,6 @@ public abstract class BaseFragment extends Fragment implements SwipeRefreshLayou
 
 
     protected View mRootView;
-    @Optional
-    @InjectView(R.id.wpl_refresh)
-    SwipeRefreshLayout mRefreshLayout;
-
-    @Optional
-    @InjectView(R.id.progress_loading)
-    ProgressWheel mLoadingProgress;
-
-    @Optional
-    @InjectView(R.id.progress_load_fail)
-    TextView mLoadFail;
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = initView(inflater);
@@ -64,13 +44,6 @@ public abstract class BaseFragment extends Fragment implements SwipeRefreshLayou
      * 初始化数据
      */
     protected void initData(){
-        mRefreshLayout.setOnRefreshListener(this);
-        mRefreshLayout.setColorSchemeResources(R.color.style_color_primary);
-        mLoadingProgress.setVisibility(View.VISIBLE);
-        //加载第一页数据
-        if (!NetWorkUtil.isNetworkAvailable(getActivity())) {
-            mLoadingProgress.setVisibility(View.GONE);
-            mLoadFail.setVisibility(View.VISIBLE);
-        }
+
     }
 }

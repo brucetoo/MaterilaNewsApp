@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="今天是心情个体"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/tv_news_title_0"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/tv_news_pic_0"
+            android:scaleType="fitXY"
+            tools:src="@drawable/img_test" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_news_digest"
+            android:layout_marginTop="10dp"
+            android:gravity="left"
+            android:textSize="14sp"
+            android:maxLines="2"
+            android:ellipsize="marquee"
+            tools:text="今天是心情个体今天是心情个体今天是心情个体今天是心情个体" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_news_comment_0"
+                android:layout_alignParentLeft="true"
+                android:gravity="center"
+                android:drawableLeft="@drawable/img_comment"
+                android:textSize="14sp"
+                tools:text="跟贴:199" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_news_time_0"
+                android:layout_alignParentRight="true"
+                android:drawableLeft="@drawable/img_time"
+                android:gravity="center"
+                android:textSize="14sp"
+                tools:text="2014.12.01" />
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

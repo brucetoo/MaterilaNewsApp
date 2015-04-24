@@ -46,4 +46,6 @@ dependencies {
     compile 'com.afollestad:material-dialogs:0.7.2.7'
     //progress
     compile 'com.pnikosis:materialish-progress:1.5'
+//    //view
+//    compile 'com.malinskiy:superrecyclerview:1.1.0'
 }
