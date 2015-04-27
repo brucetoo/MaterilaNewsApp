@@ -17,6 +17,7 @@ public class AddressConstant {
 
     // 新闻详情基URL
     public static final String NewsDetail = HOST + "nc/article/";
+    public static String photoNewsUrl = NewsDetail+"docid"+END_DETAIL_URL;
     //eg: NewsDetail + docid + END_DETAIL_URL;
     //http://c.m.163.com/nc/article/9IG74V5H00963VRO_ANQIHQ3PxwliuupdateDoc/full.html
 

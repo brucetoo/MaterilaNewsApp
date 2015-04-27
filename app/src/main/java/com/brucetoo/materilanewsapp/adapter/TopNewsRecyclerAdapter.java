@@ -33,6 +33,7 @@ public class TopNewsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     private List<NewsModel.NewsId> newsIds;
     private Context context;
+    private int lastAnimatedPosition = -1; //上一个执行动画的位置
 
     public TopNewsRecyclerAdapter(Context ctx){
         this.context = ctx;
@@ -53,7 +54,7 @@ public class TopNewsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        runEnterAnimation(holder.itemView);
+        runEnterAnimation(holder.itemView,position);
         NewsModel.NewsId item = newsIds.get(position);
             if(getItemViewType(position) == VIEW_TYPE_PHOTO){
                 PhotoNewsViewHolder photoNewsViewHolder = (PhotoNewsViewHolder) holder;
@@ -172,12 +173,16 @@ public class TopNewsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     /**
      * 每个Item进来的时候都执行动画
      * @param itemView
+     * @param position
      */
-    public void runEnterAnimation(View itemView){
-        itemView.setTranslationY(DensityUtil.getScreenHeight(context));
-        ObjectAnimator enterAnim = ObjectAnimator.ofFloat(itemView,"translationY",0);
-        enterAnim.setDuration(700);
-        enterAnim.setInterpolator(new DecelerateInterpolator(3));
-        enterAnim.start();
+    public void runEnterAnimation(View itemView, int position){
+        if (position > lastAnimatedPosition) { // 只有在下滑的时候才执行动画
+            lastAnimatedPosition = position;
+            itemView.setTranslationY(DensityUtil.getScreenHeight(context));
+            ObjectAnimator enterAnim = ObjectAnimator.ofFloat(itemView, "translationY", 0);
+            enterAnim.setDuration(700);
+            enterAnim.setInterpolator(new DecelerateInterpolator(3));
+            enterAnim.start();
+        }
     }
 }

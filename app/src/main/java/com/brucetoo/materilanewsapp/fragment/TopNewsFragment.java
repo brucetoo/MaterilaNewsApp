@@ -1,5 +1,6 @@
 package com.brucetoo.materilanewsapp.fragment;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.brucetoo.materilanewsapp.R;
+import com.brucetoo.materilanewsapp.activity.NewsDetailActivity;
+import com.brucetoo.materilanewsapp.adapter.RecyclerItemClickListener;
 import com.brucetoo.materilanewsapp.adapter.TopNewsRecyclerAdapter;
 import com.brucetoo.materilanewsapp.constant.AddressConstant;
 import com.brucetoo.materilanewsapp.model.NewsModel;
@@ -36,6 +39,7 @@ public class TopNewsFragment extends BaseFragment {
     private static String TOP_NEWS_URL = AddressConstant.TopUrl + AddressConstant.TopId + "/pageIndex" + AddressConstant.END_URL;
     private static int PAGE_LEFT = 1;//当前显示的item滑动到底还剩1个的时候，开始加载下一页
     private int currentPage = 0;
+    private  RecyclerItemClickListener recyclerItemClickListener;
 
     protected Handler mViewHandler = new Handler() {
         @Override
@@ -85,8 +89,24 @@ public class TopNewsFragment extends BaseFragment {
         mRecyclerView.setRefreshingColor(getResources().getColor(R.color.style_color_primary));
         mRecyclerView.setRefreshListener(refreshListener);
         mRecyclerView.setupMoreListener(moreListener,PAGE_LEFT);
+
+        recyclerItemClickListener = new RecyclerItemClickListener(getActivity(),mRecyclerView.getRecyclerView(),new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                NewsModel.NewsId newsId = adapter.getNewsIds().get(position);
+                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                intent.putExtra("url",AddressConstant.photoNewsUrl.replace("docid",newsId.docid));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        });
+        mRecyclerView.addOnItemTouchListener(recyclerItemClickListener);
         //第一次进来的时候如果有缓存 直接读缓存数据
-        loadData(TOP_NEWS_URL.replace("pageIndex", 0 + ""), mViewHandler,false);
+        loadData(TOP_NEWS_URL.replace("pageIndex", 0 + ""), mViewHandler, false);
     }
 
     /**
@@ -109,4 +129,8 @@ public class TopNewsFragment extends BaseFragment {
             loadMoreData(TOP_NEWS_URL.replace("pageIndex", currentPage * 20 + ""), mViewHandler);
         }
     };
+
+    /**
+     * 新闻页点击事件
+     */
 }

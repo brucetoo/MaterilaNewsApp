@@ -8,5 +8,8 @@
         <item name="colorAccent">@color/style_color_accent</item>
         <!--<item name="android:windowTranslucentStatus">true</item>-->
     </style>
-
+    <style name="TransparentTheme" parent="AppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 </resources>

@@ -26,6 +26,7 @@ public class MainActivity extends BaseActivity {
     ViewPager mViewPager;
 
     private boolean mToolBarAnimation;//toolBar 第一次进入界面时动画
+    private FragmentPagerItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class MainActivity extends BaseActivity {
      * 初始化viewpager和strip
      */
     private void initView() {
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+        adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
                 .add(R.string.topnews, TopNewsFragment.class)
                 .add(R.string.topnews, TopNewsFragment.class)
