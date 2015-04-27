@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="swipe_progress_bar_height">8dp</dimen>
+    <dimen name="tab_height">48dp</dimen>
+    <dimen name="toolbar_elevation">8dp</dimen>
 </resources>

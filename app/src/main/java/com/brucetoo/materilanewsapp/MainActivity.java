@@ -5,28 +5,26 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
 import com.brucetoo.materilanewsapp.activity.BaseActivity;
-import com.brucetoo.materilanewsapp.fragment.TopNewsFragment;
+import com.brucetoo.materilanewsapp.adapter.MainPageTabAdapter;
 import com.brucetoo.materilanewsapp.utils.DensityUtil;
+import com.brucetoo.materilanewsapp.widget.SlidingTabLayout;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.ogaclejapan.smarttablayout.SmartTabLayout;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import butterknife.InjectView;
 
 
 public class MainActivity extends BaseActivity {
 
-    @InjectView(R.id.viewpager_tab)
-    SmartTabLayout mTabLayout;
+    @InjectView(R.id.sliding_tabs)
+    SlidingTabLayout mTabLayout;
     @InjectView(R.id.viewpager)
     ViewPager mViewPager;
 
     private boolean mToolBarAnimation;//toolBar 第一次进入界面时动画
-    private FragmentPagerItemAdapter adapter;
+    private MainPageTabAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,37 +38,15 @@ public class MainActivity extends BaseActivity {
     }
 
     /**
-     * 初始化viewpager和strip
+     * 初始化viewpager和table_layout
      */
     private void initView() {
-        adapter = new FragmentPagerItemAdapter(
-                getSupportFragmentManager(), FragmentPagerItems.with(this)
-                .add(R.string.topnews, TopNewsFragment.class)
-                .add(R.string.topnews, TopNewsFragment.class)
-                .add(R.string.topnews, TopNewsFragment.class)
-                .add(R.string.topnews, TopNewsFragment.class)
-                .create());
-
+        adapter = new MainPageTabAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(adapter);
-        mViewPager.setOffscreenPageLimit(1);
+        mTabLayout.setDistributeEvenly(true);//填充满屏幕宽度
+        mTabLayout.setCustomTabView(R.layout.view_tab_item,R.id.text); //该方法必须在setViewPager前调用
+        mTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.tab_text_color));
         mTabLayout.setViewPager(mViewPager);
-        //滑动viewpager改变title
-        mTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-            //    setToolBarTitle("Top:"+position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.brucetoo.materilanewsapp.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -65,11 +66,12 @@ public class TopNewsFragment extends BaseFragment {
             }
         }
     };
-//    public static TopNewsFragment newInstance(Bundle bundle){
-//        TopNewsFragment fragment = new TopNewsFragment();
-//        fragment.setArguments(bundle);
-//        return fragment;
-//    }
+
+    public static TopNewsFragment newInstance(Bundle bundle){
+        TopNewsFragment fragment = new TopNewsFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     protected View initView(LayoutInflater inflater) {
