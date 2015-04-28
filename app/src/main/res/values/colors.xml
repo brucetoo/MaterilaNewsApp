@@ -3,7 +3,8 @@
     <color name="style_color_primary">#03A9F4</color>
     <color name="style_color_primary_dark">#0288D1</color>
     <color name="style_color_accent">#81D4FA</color>
-    <color name="tab_text_color">#E91E63</color>
+    <color name="tab_text_color_select">#E91E63</color>
+    <color name="tab_text_color_default">#000000</color>
 
     <color name="fab_pressed">#E91E63</color>
     <color name="fab_normol">#AB47BC</color>

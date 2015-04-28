@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity {
         mViewPager.setAdapter(adapter);
         mTabLayout.setDistributeEvenly(true);//填充满屏幕宽度
         mTabLayout.setCustomTabView(R.layout.view_tab_item, R.id.text); //该方法必须在setViewPager前调用
-        mTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.tab_text_color));
+        mTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.tab_text_color_select));
         mTabLayout.setViewPager(mViewPager);
     }
 
