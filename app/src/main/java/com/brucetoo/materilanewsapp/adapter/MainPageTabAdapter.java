@@ -4,7 +4,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.brucetoo.materilanewsapp.MainActivity;
 import com.brucetoo.materilanewsapp.fragment.TopNewsFragment;
+import com.brucetoo.materilanewsapp.utils.SharePrefUtil;
+
+import java.util.List;
 
 
 /**
@@ -14,10 +18,11 @@ import com.brucetoo.materilanewsapp.fragment.TopNewsFragment;
  */
 public class MainPageTabAdapter extends FragmentStatePagerAdapter{
 
-    private static String TITLES[] = new String[]{"头条","头条","头条","头条","头条","头条","头条","头条"};
+    private List<String> tabNames;
 
-    public MainPageTabAdapter(FragmentManager fm) {
+    public MainPageTabAdapter(FragmentManager fm, MainActivity mainActivity) {
         super(fm);
+        tabNames = SharePrefUtil.getTabSortNames(mainActivity);
     }
 
     @Override
@@ -34,12 +39,12 @@ public class MainPageTabAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public int getCount() {
-        return TITLES.length;
+        return tabNames.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return TITLES[position];
+        return tabNames.get(position);
     }
 
 }

@@ -12,4 +12,16 @@
     <string name="empty_msg_loading">加载中,请稍后...</string>
     <string name="empty_msg_error">获取数据失败</string>
     <string name="empty_msg_tryagain">重试</string>
+
+    <array name="tab_name">
+        <item name = "top_news">头条</item>
+        <item name = "hot_news">热点</item>
+        <item name = "gym_news">体育</item>
+        <item name = "ent_news">娱乐</item>
+        <item name = "army_news">军事</item>
+        <item name = "his_news">历史</item>
+        <item name = "NBA_news">NBA</item>
+        <item name = "joke_news">段子</item>
+        <item name = "tec_news">科技</item>
+    </array>
 </resources>

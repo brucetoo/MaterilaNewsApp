@@ -41,11 +41,29 @@
 
        <include layout="@layout/tool_bar"/>
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
         <com.brucetoo.materilanewsapp.widget.SlidingTabLayout
             android:id="@+id/sliding_tabs"
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_height"
             android:background="@color/style_color_primary" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:id="@+id/iv_sort"
+            android:background="@drawable/img_default"
+            android:scaleType="centerCrop"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/arrow_to_bottom"
+            />
+        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>

@@ -17,4 +17,9 @@
         <item name="colorPrimaryDark">@color/style_color_primary_dark</item>
         <item name="colorAccent">@color/style_color_accent</item>
     </style>
+
+    <style name="FadePopWin">
+        <item name="@android:windowEnterAnimation">@anim/pop_win_up_in</item>
+        <item name="@android:windowExitAnimation">@anim/pop_win_down_out</item>
+    </style>
 </resources>
