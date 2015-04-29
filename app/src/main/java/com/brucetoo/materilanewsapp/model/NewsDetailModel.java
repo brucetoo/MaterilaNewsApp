@@ -14,4 +14,7 @@ public class NewsDetailModel {
     public String source;
     public String time;
     public List<String> img;
+    public String url_mp4;
+    public String cover;
+    public String alt;
 }

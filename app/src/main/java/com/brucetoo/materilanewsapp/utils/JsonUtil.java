@@ -64,6 +64,12 @@ public class JsonUtil {
 
             JSONArray jsonArray = jsonObject.getJSONArray("img");
             model.img = parseImgList(jsonArray);
+
+            JSONArray video = jsonObject.getJSONArray("video");
+
+            model.cover = video.getJSONObject(0).getString("cover");
+            model.alt = video.getJSONObject(0).getString("cover");
+            model.url_mp4 = video.getJSONObject(0).getString("url_mp4");
         } catch (JSONException e) {
             e.printStackTrace();
         }

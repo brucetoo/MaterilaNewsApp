@@ -10,8 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
-        >
+        android:background="#ffffff">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,20 +57,37 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:id="@+id/ll_imgs"
+                android:id="@+id/ll_holder"
                 android:orientation="vertical">
 
-                <!--<com.brucetoo.materilanewsapp.widget.CoverFlow-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:id="@+id/cf_img_flow"-->
-                />
-                <!---->
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/fl_video_holder">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:id="@+id/iv_video_img"
+                        tools:src="@drawable/img_test"
+                        android:scaleType="fitXY" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/iv_video_cover"
+                        android:layout_gravity="center"
+                        android:src="@drawable/img_video_cover"
+                        />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fl_img_holder">
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -84,12 +100,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_total_img"
-                        tools:text = "共99张"
+                        tools:text="共99张"
                         android:textColor="@color/style_color_accent"
                         android:textStyle="bold"
                         android:layout_gravity="bottom"
-                        android:background="@color/material_blue_grey_800"
-                        />
+                        android:background="@color/material_blue_grey_800" />
                 </FrameLayout>
 
             </LinearLayout>

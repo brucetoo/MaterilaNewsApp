@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#000"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+   <include layout="@layout/tool_bar"/>
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/btn_back"-->
+        <!--android:id="@+id/iv_back"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--/>-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <android.support.v4.view.ViewPager
+            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            android:id="@+id/vp_img_pager" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1/22"
+            android:textSize="18sp"
+            android:padding="5dp"
+            android:id="@+id/tv_img_count"
+            android:background="@color/material_blue_grey_800"
+            android:textColor="@color/style_color_accent"
+            android:layout_gravity="bottom"
+            />
+
+    </FrameLayout>
+</RelativeLayout>

@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:id="@+id/title"
+        android:textColor="@color/style_color_accent"
         android:visibility="visible"
         tools:text="Top Title"
         />

@@ -27,7 +27,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.NewsDetailActivity"
+            android:theme="@style/TransparentTheme"
          />
+        <activity android:name=".activity.ImageDetailActivity"
+            android:theme="@style/TransparentTheme"/>
     </application>
 
 </manifest>

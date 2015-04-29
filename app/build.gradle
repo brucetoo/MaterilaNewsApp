@@ -49,5 +49,6 @@ dependencies {
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
     //html-textview
     compile 'org.sufficientlysecure:html-textview:1.1'
-    compile files('libs/javassist.jar')
+    //swipeback
+    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
 }
