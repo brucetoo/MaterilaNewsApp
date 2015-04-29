@@ -27,8 +27,10 @@ dependencies {
     compile 'com.android.support:palette-v7:+'
     compile 'com.android.support:recyclerview-v7:+'
     compile 'com.android.support:cardview-v7:21.0.+'
-    compile 'com.jakewharton:butterknife:5.1.2'  //注解
-    compile 'com.squareup.picasso:picasso:2.5.0' //图片
+    compile 'com.jakewharton:butterknife:5.1.2'
+    //注解
+    compile 'com.squareup.picasso:picasso:2.5.0'
+    //图片
     //SystemBar tint
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     //log
@@ -45,4 +47,7 @@ dependencies {
     compile 'com.pnikosis:materialish-progress:1.5'
     //scroll to hide 暂时没用
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
+    //html-textview
+    compile 'org.sufficientlysecure:html-textview:1.1'
+    compile files('libs/javassist.jar')
 }

@@ -83,11 +83,6 @@ public class TopNewsFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
-        if (!NetWorkUtil.isNetworkAvailable(getActivity())) {
-//            mRootView.removeAllViews();
-//            View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_errorview, null);
-//            mRootView.addView(view);
-        }
         mRecyclerView.setRefreshingColor(getResources().getColor(R.color.style_color_primary));
         mRecyclerView.setRefreshListener(refreshListener);
         mRecyclerView.setupMoreListener(moreListener,PAGE_LEFT);
@@ -98,6 +93,7 @@ public class TopNewsFragment extends BaseFragment {
                 NewsModel.NewsId newsId = adapter.getNewsIds().get(position);
                 Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
                 intent.putExtra("url",AddressConstant.photoNewsUrl.replace("docid",newsId.docid));
+                intent.putExtra("docid",newsId.docid);
                 startActivity(intent);
             }
 
@@ -107,8 +103,12 @@ public class TopNewsFragment extends BaseFragment {
             }
         });
         mRecyclerView.addOnItemTouchListener(recyclerItemClickListener);
-        //第一次进来的时候如果有缓存 直接读缓存数据
-        loadData(TOP_NEWS_URL.replace("pageIndex", 0 + ""), mViewHandler, false);
+        //第一次进来的时候如果无网络，有缓存 直接读缓存数据，有网络直接刷新
+        if (NetWorkUtil.isNetworkAvailable(getActivity())) {
+            loadData(TOP_NEWS_URL.replace("pageIndex", 0 + ""), mViewHandler, true);
+        }else {
+            loadData(TOP_NEWS_URL.replace("pageIndex", 0 + ""), mViewHandler, false);
+        }
     }
 
     /**
@@ -132,7 +132,4 @@ public class TopNewsFragment extends BaseFragment {
         }
     };
 
-    /**
-     * 新闻页点击事件
-     */
 }

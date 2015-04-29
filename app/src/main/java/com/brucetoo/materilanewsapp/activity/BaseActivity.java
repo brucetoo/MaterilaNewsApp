@@ -1,6 +1,5 @@
 package com.brucetoo.materilanewsapp.activity;
 
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -57,7 +56,7 @@ public class BaseActivity extends ActionBarActivity{
     protected void setToolBar(String title) {
         if(mToolBar != null){
             setSupportActionBar(mToolBar);
-            ViewCompat.setElevation(mToolBar,getResources().getDimension(R.dimen.toolbar_elevation));
+         //   ViewCompat.setElevation(mToolBar,getResources().getDimension(R.dimen.toolbar_elevation));
             mToolBar.setNavigationIcon(R.drawable.ic_menu_white);
             if(!StringUtil.isEmpty(title)) {
                 mTitle.setText(title);

@@ -1,15 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <include layout="@layout/tool_bar" />
 
-    <WebView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/wb_news_detail" />
+        android:background="#ffffff"
+        >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                tools:text="河南省长放狠话治理大气污染"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_source"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    tools:text="大河网"
+                    android:textSize="15sp"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="2013.1.1"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="15sp"
+                    android:textColor="#000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:id="@+id/ll_imgs"
+                android:orientation="vertical">
+
+                <!--<com.brucetoo.materilanewsapp.widget.CoverFlow-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:id="@+id/cf_img_flow"-->
+                />
+                <!---->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:id="@+id/iv_first_img"
+                        tools:src="@drawable/img_test"
+                        android:scaleType="fitXY" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_total_img"
+                        tools:text = "共99张"
+                        android:textColor="@color/style_color_accent"
+                        android:textStyle="bold"
+                        android:layout_gravity="bottom"
+                        android:background="@color/material_blue_grey_800"
+                        />
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <org.sufficientlysecure.htmltextview.HtmlTextView
+                android:id="@+id/html_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

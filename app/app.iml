@@ -88,11 +88,13 @@
     <orderEntry type="library" exported="" name="logger-1.8" level="project" />
     <orderEntry type="library" exported="" name="systembartint-1.0.3" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.5.0" level="project" />
+    <orderEntry type="library" exported="" name="javassist" level="project" />
     <orderEntry type="library" exported="" name="palette-v7-22.1.0" level="project" />
+    <orderEntry type="library" exported="" name="html-textview-1.1" level="project" />
     <orderEntry type="library" exported="" name="material-dialogs-0.7.2.7" level="project" />
     <orderEntry type="library" exported="" name="materialish-progress-1.5" level="project" />
-    <orderEntry type="library" exported="" name="support-annotations-22.1.0" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-21.0.3" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-22.1.0" level="project" />
     <orderEntry type="library" exported="" name="android-async-http-1.4.6" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
     <orderEntry type="library" exported="" name="support-v13-21.0.3" level="project" />

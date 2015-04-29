@@ -1,18 +1,27 @@
 package com.brucetoo.materilanewsapp.activity;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.Menu;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.brucetoo.materilanewsapp.R;
+import com.brucetoo.materilanewsapp.model.NewsDetailModel;
+import com.brucetoo.materilanewsapp.utils.HttpUtil;
+import com.brucetoo.materilanewsapp.utils.JsonUtil;
 import com.brucetoo.materilanewsapp.widget.EmptyViewLayout;
+import com.loopj.android.http.TextHttpResponseHandler;
 import com.orhanobut.logger.Logger;
+import com.squareup.picasso.Picasso;
 
-import java.io.File;
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 import butterknife.InjectView;
 
@@ -22,13 +31,47 @@ import butterknife.InjectView;
  * At 15:45
  */
 public class NewsDetailActivity extends BaseActivity {
-
-    @InjectView(R.id.wb_news_detail)
-    WebView mWebView;
+    @InjectView(R.id.html_text)
+    HtmlTextView mHtmlText;
+    @InjectView(R.id.tv_title)
+    TextView mTitle;
+    @InjectView(R.id.tv_source)
+    TextView mSource;
+    @InjectView(R.id.tv_time)
+    TextView mTime;
+    @InjectView(R.id.iv_first_img)
+    ImageView mFirstImg;
+    @InjectView(R.id.tv_total_img)
+    TextView mTotalImg;
 
     private EmptyViewLayout emptyViewLayout;
-    private final static String CACHE_NAME = "bruce";
+
     private String mUrl;
+    private String mDocId;
+    private NewsDetailModel newsDetailModel;
+    private static int HANDLE_REFESH_UI = 1001;
+    private  Handler detaiHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+             if(msg.what == HANDLE_REFESH_UI){
+                 mHtmlText.setHtmlFromString(newsDetailModel.body,false);
+                 mTitle.setText(newsDetailModel.title);
+                 mSource.setText(newsDetailModel.source);
+                 mTime.setText(newsDetailModel.time);
+                 if(newsDetailModel.img.size() > 0) {
+                     Picasso.with(NewsDetailActivity.this)
+                             .load(newsDetailModel.img.get(0))
+                             .placeholder(R.drawable.img_loading)
+                             .error(R.drawable.img_loading_fail)
+                             .into(mFirstImg);
+                     mTotalImg.setText("共"+newsDetailModel.img.size()+"张图");
+                 }else {
+                     mFirstImg.setVisibility(View.GONE);
+                     mTotalImg.setVisibility(View.GONE);
+                 }
+             }
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,109 +80,35 @@ public class NewsDetailActivity extends BaseActivity {
         setToolBar("新闻详情");
 
         mUrl = getIntent().getStringExtra("url");
+        mDocId = getIntent().getStringExtra("docid");
         Logger.d(mUrl);
 
-        emptyViewLayout = new EmptyViewLayout(this,mWebView);
-        initWebView();
-        mWebView.loadUrl(mUrl);
-        mWebView.setWebViewClient(new WebViewClient(){
+        emptyViewLayout = new EmptyViewLayout(this, mHtmlText);
+        emptyViewLayout.showLoading();
+
+        HttpUtil.get(mUrl, new TextHttpResponseHandler() {
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(mUrl);
-                return true;
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                emptyViewLayout.showError();
             }
 
             @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                emptyViewLayout.showLoading(); //设置显示加载中布局
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 emptyViewLayout.showContentView();
-            }
+                try {
+                    JSONObject jsonObject = new JSONObject(responseString).getJSONObject(mDocId);
+                    newsDetailModel = JsonUtil.parseNewsDetail(jsonObject);
+                    detaiHandler.sendEmptyMessage(HANDLE_REFESH_UI);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-            @Override
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-               emptyViewLayout.showError();
             }
         });
-    }
-
-    private void initWebView() {
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-        mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);	//设置缓存模式
-        // 开启 DOM storage API 功能
-        mWebView.getSettings().setDomStorageEnabled(true);
-        //开启 database storage API 功能
-        mWebView.getSettings().setDatabaseEnabled(true);
-        String cacheDirPath = getFilesDir().getAbsolutePath()+CACHE_NAME;
-//		String cacheDirPath = getCacheDir().getAbsolutePath()+CACHE_NAME;
-        //设置数据库缓存路径
-        mWebView.getSettings().setDatabasePath(cacheDirPath);
-        //设置  Application Caches 缓存目录
-        mWebView.getSettings().setAppCachePath(cacheDirPath);
-        //开启 Application Caches 功能
-        mWebView.getSettings().setAppCacheEnabled(true);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
-    }
-
-    /**
-     * 清除WebView缓存
-     */
-    public void clearWebViewCache(){
-
-        //清理Webview缓存数据库
-        try {
-            deleteDatabase("webview.db");
-            deleteDatabase("webviewCache.db");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //WebView 缓存文件
-        File appCacheDir = new File(getFilesDir().getAbsolutePath()+CACHE_NAME);
-        Logger.d("appCacheDir path="+appCacheDir.getAbsolutePath());
-
-        File webviewCacheDir = new File(getCacheDir().getAbsolutePath()+"/webviewCache");
-        Logger.d( "webviewCacheDir path="+webviewCacheDir.getAbsolutePath());
-
-        //删除webview 缓存目录
-        if(webviewCacheDir.exists()){
-            deleteFile(webviewCacheDir);
-        }
-        //删除webview 缓存 缓存目录
-        if(appCacheDir.exists()){
-            deleteFile(appCacheDir);
-        }
-    }
-
-    /**
-     * 递归删除 文件/文件夹
-     *
-     * @param file
-     */
-    public void deleteFile(File file) {
-
-        Logger.d("delete file path=" + file.getAbsolutePath());
-
-        if (file.exists()) {
-            if (file.isFile()) {
-                file.delete();
-            } else if (file.isDirectory()) {
-                File files[] = file.listFiles();
-                for (int i = 0; i < files.length; i++) {
-                    deleteFile(files[i]);
-                }
-            }
-            file.delete();
-        } else {
-            Logger.d( "delete file no exists " + file.getAbsolutePath());
-        }
     }
 }

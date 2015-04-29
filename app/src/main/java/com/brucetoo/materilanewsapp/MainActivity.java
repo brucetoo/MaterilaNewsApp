@@ -41,7 +41,7 @@ public class MainActivity extends BaseActivity {
         if (savedInstanceState == null) { // 该界面第一次进入的时候中心toolbar动画
             mToolBarAnimation = true;
         }
-        setToolBar("Hot Top News");
+        setToolBar("头条");
         initView();
     }
 
@@ -55,6 +55,22 @@ public class MainActivity extends BaseActivity {
         mTabLayout.setCustomTabView(R.layout.view_tab_item, R.id.text); //该方法必须在setViewPager前调用
         mTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.tab_text_color_select));
         mTabLayout.setViewPager(mViewPager);
+        mTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                 setToolBarTitle(adapter.getPageTitle(position).toString()  );
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     /**
